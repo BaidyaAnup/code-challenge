@@ -54,6 +54,9 @@
       <div class="col-lg offset-lg-1">
         <div class="form-group">
           <%= f.text_field :email, class: "form-control", placeholder: "hello@company.com"%>
+          <% if @company.errors[:email].present? %>
+          <div style="color: red"><%= @company.errors[:email].first %></div>
+          <%end%>
         </div>
       </div>
     </div>
