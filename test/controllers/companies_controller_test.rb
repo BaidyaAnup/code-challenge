@@ -64,4 +64,37 @@ class CompaniesControllerTest < ApplicationSystemTestCase
     assert_equal "28173", last_company.zip_code
   end
 
+  test "Create_new_company_with_empty_email" do
+    visit new_company_path
+        within("form#new_company") do
+      fill_in("company_name", with: "Coffee Farm")
+      fill_in("company_zip_code", with: "28173")
+      fill_in("company_phone", with: "5553335555")
+      fill_in("company_email", with: "")
+      click_button "Create Company"
+    end
+
+    assert_text "Saved"
+
+    last_company = Company.last
+    assert_equal "Coffee Farm", last_company.name
+    assert_equal "28173", last_company.zip_code
+
+  end
+
+    test "Email_format_check" do
+    visit new_company_path
+        within("form#new_company") do
+      fill_in("company_name", with: "Tea Farm")
+      fill_in("company_zip_code", with: "28173")
+      fill_in("company_phone", with: "5553335555")
+      fill_in("company_email", with: "tea@gmail.com")
+      click_button "Create Company"
+    end
+
+    assert_text "Email should only be a @getmainstreet.com domain"
+
+
+  end
+
 end
